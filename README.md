@@ -9,6 +9,8 @@ Using the spark base docker images, you can install your python code in it and t
 
 - docker
 - minikube
+- pyspark-2.4.0 (install via pip, needed for spark submit)
+- docker containers with spark 2.4.0 (prebuild at: sdehaes/spark:v2.4.0, sdehaes/spark-py:v2.4.0)
 
 
 ## How to run
