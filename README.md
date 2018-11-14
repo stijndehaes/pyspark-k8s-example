@@ -12,6 +12,13 @@ Using the spark base docker images, you can install your python code in it and t
 - pyspark-2.4.0 (install via pip, needed for spark submit)
 - docker containers with spark 2.4.0 (prebuild at: sdehaes/spark:v2.4.0, sdehaes/spark-py:v2.4.0)
 
+To build the docker containers yourself you need to checkout spark at the release tag v2.4.0, the you need to use the following command to build it:
+
+```bash
+./build/mvn -Pkubernetes -DskipTests clean package
+bin/docker-image-tool.sh -r <docker repo> -t v2.4.0 build
+bin/docker-image-tool.sh -r <docker repo> -t v2.4.0 push
+```
 
 ## How to run
 
