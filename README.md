@@ -8,7 +8,7 @@ Using the spark base docker images, you can install your python code in it and t
 ## Requirements
 
 - docker
-- minikube
+- minikube (with at least 3 cpu and 4096mb ram, `minikube start --cpus 3 --memory 4096`)
 - pyspark-2.4.0 (install via pip, needed for spark submit)
 - docker containers with spark 2.4.0 (prebuild at: sdehaes/spark:v2.4.0, sdehaes/spark-py:v2.4.0)
 
@@ -52,3 +52,12 @@ spark-submit \
     --conf spark.kubernetes.pyspark.pythonVersion=3 \
     /usr/bin/run.py
 ```
+
+If you get an error `Could not find valid SPARK_HOME while searching ...` then you should set spark home to the directory where pip installed pyspark.
+For mac with a homebrew version of python this is:
+
+`export SPARK_HOME=/usr/local/lib/python3.7/site-packages/pyspark`
+
+On ubuntu this will be:
+
+`export SPARK_HOME=//usr/local/lib/python3.7/dist-packages/pyspark`
