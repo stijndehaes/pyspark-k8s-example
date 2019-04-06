@@ -1,7 +1,4 @@
-FROM sdehaes/spark-py:v2.4.0
-
-# Cache this layer
-RUN python3 -m pip install pyspark==2.4.0
+FROM sdehaes/spark-py:v2.4.1-hadoop-2.9.2
 
 COPY . /app
 WORKDIR /app

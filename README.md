@@ -9,20 +9,20 @@ Using the spark base docker images, you can install your python code in it and t
 
 - docker
 - minikube (with at least 3 cpu and 4096mb ram, `minikube start --cpus 3 --memory 4096`)
-- pyspark-2.4.0 (install via pip, needed for spark submit)
-- docker containers with spark 2.4.0 (prebuild at: sdehaes/spark:v2.4.0, sdehaes/spark-py:v2.4.0)
+- pyspark-2.4.1 (install via pip, needed for spark submit)
+- docker containers with spark 2.4.1 (prebuild at: sdehaes/spark:v2.4.1-hadoop-2.9.2, sdehaes/spark-py:v2.4.1-hadoop-2.9.2 )
 
-To build the docker containers yourself you need to checkout spark at the release tag v2.4.0, the you need to use the following command to build it:
+To build the docker containers yourself you need to checkout spark at the release tag v2.4.1, the you need to use the following command to build it:
 
 ```bash
-./build/mvn -Pkubernetes -DskipTests clean package
-bin/docker-image-tool.sh -r <docker repo> -t v2.4.0 build
-bin/docker-image-tool.sh -r <docker repo> -t v2.4.0 push
+./build/mvn -Pkubernetes -DskipTests clean package -Phadoop-2.7 -Dhadoop.version=2.9.2
+bin/docker-image-tool.sh -r <docker repo> -t v2.4.1 build
+bin/docker-image-tool.sh -r <docker repo> -t v2.4.1 push
 ```
 
 ## How to run
 
-the launch.sh script combines all necessary steps.
+The launch.sh script combines all necessary steps.
 
 Add rbac roles for spark on kubernetes:
 
@@ -35,7 +35,7 @@ Build the docker image:
 
 ```bash
 eval $(minikube docker-env)
-docker build . -t pyspark-k8s-example:2.4.0
+docker build . -t pyspark-k8s-example:2.4.1
 ```
 The first command makes certain the docker image is build in the minikube environment.
 
@@ -47,7 +47,7 @@ spark-submit \
     --deploy-mode cluster \
     --name spark-example \
     --conf spark.executor.instances=1 \
-    --conf spark.kubernetes.container.image=pyspark-k8s-example:2.4.0 \
+    --conf spark.kubernetes.container.image=pyspark-k8s-example:2.4.1 \
     --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
     --conf spark.kubernetes.pyspark.pythonVersion=3 \
     /usr/bin/run.py

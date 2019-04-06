@@ -5,5 +5,5 @@ from pyspark_example.randomfilter import RandomFilter
 
 if __name__ == '__main__':
     conf = SparkConf().setAppName("calculate_pyspark_example")
-    sc = SparkContext(conf=conf)
-    print("Random count:", RandomFilter(sc, num_samples=10000).run())
+    with SparkContext(conf=conf) as sc:
+        print("Random count:", RandomFilter(sc, num_samples=100000).run())
