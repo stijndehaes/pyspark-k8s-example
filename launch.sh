@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
-kubectl create serviceaccount spark
-kubectl create clusterrolebinding spark-role --clusterrole=edit --serviceaccount=default:spark --namespace=default
+set -e
+
+if ! kubectl get serviceaccount spark; then
+    kubectl create serviceaccount spark
+    kubectl create clusterrolebinding spark-role --clusterrole=edit --serviceaccount=default:spark --namespace=default
+fi
 
 eval $(minikube docker-env)
 docker build . -t pyspark-k8s-example:2.4.1

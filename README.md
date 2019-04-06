@@ -37,6 +37,9 @@ Build the docker image:
 eval $(minikube docker-env)
 docker build . -t pyspark-k8s-example:2.4.1
 ```
+
+In the docker image `--no-cache-dir` is used as an option for pip install. This disables [caching](https://pip.pypa.io/en/stable/reference/pip_install/#caching) making your docker image smaller.
+
 The first command makes certain the docker image is build in the minikube environment.
 
 Launch the spark submit:
